@@ -1,0 +1,21 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "cl-site-blocks/event-location",
+	"version": "1.0.0",
+	"title": "Event Location",
+	"category": "widgets",
+	"icon": "block-default",
+	"keywords": [],
+	"description": "",
+	"example": {},
+	"supports": {
+		"html": false,
+		"align": true,
+		"customClassName": true,
+		"interactivity": false
+	},
+	"attributes": {},
+	"editorScript": "file:./index.tsx",
+	"render": "file:./render.php"
+}

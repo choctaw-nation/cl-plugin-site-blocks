@@ -1,0 +1,13 @@
+/node_modules
+.DS_Store
+/vendor
+/.DS_Store
+/build
+*.zip
+
+.vscode/launch.json
+
+# Tests
+.wp-tests/
+html-coverage/
+.phpunit.result.cache
