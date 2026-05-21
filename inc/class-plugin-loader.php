@@ -18,12 +18,21 @@ class Plugin_Loader {
 	private string $dir_path;
 
 	/**
+	 * The directory URL of the plugin
+	 *
+	 * @var string $dir_url
+	 */
+	private string $dir_url;
+
+	/**
 	 * Constructor
 	 *
 	 * @param string $dir_path The directory path of the plugin
+	 * @param string $dir_url The directory URL of the plugin
 	 */
 	public function __construct( string $dir_path, string $dir_url ) {
 		$this->dir_path = $dir_path;
+		$this->dir_url  = $dir_url;
 	}
 
 	/**
@@ -32,7 +41,7 @@ class Plugin_Loader {
 	 * @return void
 	 */
 	public function activate(): void {
-		_doing_it_wrong( __METHOD__, 'Method not implemented yet', '1.1.0' );
+		// nothing to do
 	}
 
 	/**
@@ -42,7 +51,7 @@ class Plugin_Loader {
 	 * @return void
 	 */
 	public function deactivate(): void {
-		_doing_it_wrong( __METHOD__, 'Method not implemented yet', '1.1.0' );
+		// nothing to do
 	}
 
 	/**
@@ -50,20 +59,23 @@ class Plugin_Loader {
 	 * (this is a callback function for the `register_uninstall_hook` function)
 	 */
 	public static function uninstall(): void {
-		_doing_it_wrong( __METHOD__, 'Method not implemented yet', '2.0.0' );
+		// nothing to do
 	}
 
 	/**
 	 * Loads the Plugin
 	 */
 	public function load_plugin(): void {
-		_doing_it_wrong( __METHOD__, 'Method not implemented yet', '2.0.0' );
+		add_action( 'init', array( $this, 'register_blocks' ) );
+		$rest_router = new Rest_Router();
+		add_action( 'rest_api_init', array( $rest_router, 'register_routes' ) );
+		add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_editor_assets' ) );
 	}
 
 	/**
 	 * Register Gutenberg Block
 	 */
-	public function register_block() {
+	public function register_blocks() {
 		$blocks_path = $this->dir_path;
 		/**
 		 * Registers the block(s) metadata from the `blocks-manifest.php` and registers the block type(s)
@@ -76,24 +88,22 @@ class Plugin_Loader {
 			wp_register_block_types_from_metadata_collection( $blocks_path . '/build/blocks', $blocks_path . '/build/blocks-manifest.php' );
 			return;
 		}
+	}
 
-		/**
-		 * Registers the block(s) metadata from the `blocks-manifest.php` file.
-		 * Added to WordPress 6.7 to improve the performance of block type registration.
-		 *
-		 * @see https://make.wordpress.org/core/2024/10/17/new-block-type-registration-apis-to-improve-performance-in-wordpress-6-7/
-		 */
-		if ( function_exists( 'wp_register_block_metadata_collection' ) ) {
-			wp_register_block_metadata_collection( $blocks_path . '/build/blocks', $blocks_path . '/build/blocks-manifest.php' );
-		}
-		/**
-		 * Registers the block type(s) in the `blocks-manifest.php` file.
-		 *
-		 * @see https://developer.wordpress.org/reference/functions/register_block_type/
-		 */
-		$manifest_data = require $blocks_path . '/build/blocks-manifest.php';
-		foreach ( array_keys( $manifest_data ) as $block_type ) {
-			register_block_type( $blocks_path . "/build/blocks/{$block_type}" );
+	/**
+	 * Enqueues the block editor assets
+	 */
+	public function enqueue_editor_assets() {
+		$asset_file = $this->dir_path . '/build/injectTicketsButton.asset.php';
+		if ( file_exists( $asset_file ) ) {
+			$asset = require $asset_file;
+			wp_enqueue_script(
+				'cl-site-blocks-inject-tickets-button',
+				$this->dir_url . 'build/injectTicketsButton.js',
+				$asset['dependencies'],
+				$asset['version'],
+				array( 'strategy' => 'defer' )
+			);
 		}
 	}
 }

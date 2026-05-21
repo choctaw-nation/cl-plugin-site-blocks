@@ -13,6 +13,6 @@ jobs:
         uses: choctaw-nation/shared-github-actions/.github/workflows/deploy-release.yml@main
         with:
             should_build: true
-            plugin_name: cl-site-blocks # Enter plugin name here
+            plugin_name: cl-plugin-site-blocks # Enter plugin name here
             with_autoload: true
         secrets: inherit

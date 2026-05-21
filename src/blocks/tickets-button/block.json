@@ -1,0 +1,39 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "cl-site-blocks/tickets-button",
+	"version": "1.0.0",
+	"title": "Tickets Button",
+	"category": "design",
+	"icon": "block-default",
+	"keywords": [],
+	"description": "An interactive block that lets users get tickets for an event.",
+	"example": {},
+	"supports": {
+		"html": false,
+		"align": false,
+		"customClassName": true,
+		"inserter": false,
+		"interactivity": true,
+		"multiple": false
+	},
+	"attributes": {},
+	"viewScriptModule": "file:./view.ts",
+	"editorScript": "file:./index.tsx",
+	"style": "file:./style-index.css",
+	"styles": [
+		{
+			"label": "Primary",
+			"isDefault": true,
+			"name": "primary"
+		},
+		{
+			"label": "Outline",
+			"name": "outline"
+		},
+		{
+			"label": "Text",
+			"name": "text"
+		}
+	]
+}

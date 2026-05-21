@@ -1,0 +1,42 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "cl-site-blocks/add-to-calendar",
+	"version": "1.0.0",
+	"title": "Add to Calendar",
+	"category": "widgets",
+	"icon": "block-default",
+	"keywords": [],
+	"description": "",
+	"example": {},
+	"supports": {
+		"html": false,
+		"align": false,
+		"customClassName": true,
+		"interactivity": true
+	},
+	"attributes": {
+		"eventId": {
+			"type": "number",
+			"default": 0
+		}
+	},
+	"viewScriptModule": "file:./view.ts",
+	"editorScript": "file:./index.tsx",
+	"style": "file:./style-index.css",
+	"styles": [
+		{
+			"label": "Primary",
+			"isDefault": true,
+			"name": "primary"
+		},
+		{
+			"label": "Outline",
+			"name": "outline"
+		},
+		{
+			"label": "Text",
+			"name": "text"
+		}
+	]
+}

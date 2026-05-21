@@ -1,0 +1,45 @@
+@mixin interaction {
+	&:hover,
+	&:focus,
+	&:active {
+		@content;
+	}
+}
+
+.wp-block-cl-site-blocks-tickets-button {
+	.wp-element-button {
+		display: block;
+		border: 2px solid transparent;
+		transition:
+			background-color var(--wp--custom--transition--standard),
+			color var(--wp--custom--transition--standard),
+			border-color var(--wp--custom--transition--standard);
+	}
+
+	.disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+
+	&.is-style-primary .wp-element-button {
+		background-color: var(--wp--preset--color--primary);
+		color: white;
+		border-color: var(--wp--preset--color--primary);
+
+		@include interaction {
+			background-color: white;
+			color: var(--wp--preset--color--primary);
+		}
+	}
+
+	&.is-style-outline .wp-element-button {
+		border-color: var(--wp--preset--color--primary);
+		color: var(--wp--preset--color--primary);
+		background-color: transparent;
+
+		@include interaction {
+			background-color: var(--wp--preset--color--primary);
+			color: white;
+		}
+	}
+}

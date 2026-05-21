@@ -14,7 +14,10 @@
 		"noImplicitAny": false,
 		"resolveJsonModule": true,
 		"isolatedModules": true,
-		"jsx": "preserve"
+		"jsx": "preserve",
+		"paths": {
+			"@shared/*": [ "./src/blocks/_shared/*" ]
+		}
 	},
 	"include": [ "src/**/*" ],
 	"exclude": [ "node_modules" ]

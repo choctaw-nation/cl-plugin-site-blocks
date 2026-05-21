@@ -1,0 +1,40 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "cl-site-blocks/event-duration",
+	"version": "1.0.1",
+	"title": "Event Duration",
+	"category": "text",
+	"icon": "block-default",
+	"keywords": [],
+	"description": "Displays the event duration info.",
+	"example": {},
+	"supports": {
+		"html": false,
+		"align": true,
+		"customClassName": true,
+		"interactivity": false,
+		"typography": {
+			"fontSize": true
+		},
+		"color": {
+			"text": true
+		},
+		"spacing": {
+			"margin": true
+		}
+	},
+	"attributes": {
+		"format": {
+			"type": "string",
+			"default": "F j, Y g:iA"
+		},
+		"asDuration": {
+			"type": "boolean",
+			"default": false
+		}
+	},
+	"usesContext": [ "postId", "postType" ],
+	"editorScript": "file:./index.tsx",
+	"render": "file:./render.php"
+}

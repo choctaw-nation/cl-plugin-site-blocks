@@ -1,0 +1,69 @@
+@mixin interaction {
+	&:hover,
+	&:focus,
+	&:focus-visible,
+	&:active {
+		@content;
+	}
+}
+
+.wp-block-cl-site-blocks-add-to-calendar {
+	&.wp-element-button {
+		display: block;
+		border: 2px solid transparent;
+		transition:
+			background-color var(--wp--custom--transition--standard),
+			color var(--wp--custom--transition--standard),
+			border-color var(--wp--custom--transition--standard);
+	}
+
+	&[disabled] {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+
+	&.is-style-primary {
+		background-color: var(--wp--preset--color--primary);
+		color: white;
+		border-color: var(--wp--preset--color--primary);
+
+		@include interaction {
+			background-color: white;
+			color: var(--wp--preset--color--primary);
+		}
+	}
+
+	&.is-style-outline {
+		border-color: var(--wp--preset--color--primary);
+		color: var(--wp--preset--color--primary);
+		background-color: transparent;
+
+		@include interaction {
+			background-color: var(--wp--preset--color--primary);
+			color: white;
+		}
+	}
+
+	&.is-style-text {
+		border: 0;
+		background-color: transparent;
+		box-shadow: none;
+		color: var(--wp--preset--color--primary);
+		text-decoration: underline;
+		margin: 0;
+		padding: 0;
+
+		&:hover {
+			text-decoration: none;
+			color: var(--wp--preset--color--secondary);
+		}
+
+		&:focus,
+		&:focus-visible,
+		&:active {
+			outline: 2px dashed #666;
+			outline-offset: 2px;
+			text-decoration: none;
+		}
+	}
+}

@@ -20,20 +20,24 @@
 		"vendor"
 	],
 	"scripts": {
-		"build": "wp-scripts build  --blocks-manifest --webpack-copy-php --output-path=build",
-		"build:modules": "wp-scripts build src/interactive-blocks --webpack-copy-php --blocks-manifest --experimental-modules --output-path=build/interactive-blocks",
+		"build": "wp-scripts build  --blocks-manifest --webpack-copy-php --output-path=build --config=webpack.config.mjs --experimental-modules",
 		"lint:css": "npx stylelint '**/*.scss' '**/*.css' --fix --allow-empty-input",
 		"lint:js": "npx eslint --fix",
 		"packages-update": "wp-scripts packages-update",
-		"plugin-zip": "wp-scripts build && wp-scripts plugin-zip",
-		"start": "wp-scripts start --blocks-manifest --webpack-copy-php --output-path=build",
-		"start:modules": "wp-scripts start src/interactive-blocks --webpack-copy-php --blocks-manifest --experimental-modules --output-path=build/interactive-blocks"
+		"plugin-zip": "npm run build && wp-scripts plugin-zip",
+		"start": "wp-scripts start --webpack-copy-php --blocks-manifest --experimental-modules --config=webpack.config.mjs"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^2",
 		"@wordpress/block-editor": "^15.19.0",
 		"@wordpress/blocks": "^15.19.0",
 		"@wordpress/components": "^33.1.0",
+		"@wordpress/core-data": "^7.46.0",
+		"@wordpress/data": "^10.46.0",
+		"@wordpress/date": "^5.46.0",
+		"@wordpress/dom-ready": "^4.46.0",
+		"@wordpress/editor": "^14.46.0",
+		"@wordpress/element": "^6.46.0",
 		"@wordpress/eslint-plugin": "^25",
 		"@wordpress/icons": "^13.1.0",
 		"@wordpress/interactivity": "^6.46.0",

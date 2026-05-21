@@ -10,7 +10,7 @@
  * License: GPLv3 or later
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Requires PHP: 8.2
- * Requires at least: 6.7.0
+ * Requires at least: 6.8.0
  * Tested up to: 6.9.0
  * Requires Plugins: advanced-custom-fields-pro, cno-plugin-events
  *
@@ -48,3 +48,14 @@ register_uninstall_hook( __FILE__, array( 'ChoctawNation\CL_SiteBlocks\Plugin_Lo
 
 // Load the Plugin
 add_action( 'plugins_loaded', array( $cno_plugin, 'load_plugin' ) );
+add_action(
+	'wp_default_scripts',
+	function ( $scripts ) {
+		if ( isset( $scripts->registered['jquery'] ) ) {
+			$scripts->registered['jquery']->deps = array_diff(
+				$scripts->registered['jquery']->deps,
+				array( 'jquery-migrate' )
+			);
+		}
+	}
+);
