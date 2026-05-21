@@ -2,7 +2,7 @@
 	"name": "choctaw-nation/cl-plugin-site-blocks",
 	"description": "Blocks for the Choctaw Landing site.",
 	"type": "project",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"autoload": {
 		"classmap": [
 			"inc/"
