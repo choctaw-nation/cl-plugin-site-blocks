@@ -8,11 +8,6 @@
 			"inc/"
 		]
 	},
-	"autoload-dev": {
-		"classmap": [
-			"tests/"
-		]
-	},
 	"extra": {
 		"installer-paths": {
 			"vendor/{$name}/": [

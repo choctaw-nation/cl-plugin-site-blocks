@@ -70,6 +70,9 @@ class Plugin_Loader {
 		$rest_router = new Rest_Router();
 		add_action( 'rest_api_init', array( $rest_router, 'register_routes' ) );
 		add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_editor_assets' ) );
+		$query_handler = new Jobs\Query_Handler();
+		add_filter( 'pre_render_block', array( $query_handler, 'pre_render_block' ), 10, 2 );
+		add_filter( 'render_block_core/query', array( $query_handler, 'cleanup_upcoming_events_query_filter' ), 10, 2 );
 	}
 
 	/**
@@ -94,16 +97,22 @@ class Plugin_Loader {
 	 * Enqueues the block editor assets
 	 */
 	public function enqueue_editor_assets() {
-		$asset_file = $this->dir_path . '/build/injectTicketsButton.asset.php';
-		if ( file_exists( $asset_file ) ) {
-			$asset = require $asset_file;
-			wp_enqueue_script(
-				'cl-site-blocks-inject-tickets-button',
-				$this->dir_url . 'build/injectTicketsButton.js',
-				$asset['dependencies'],
-				$asset['version'],
-				array( 'strategy' => 'defer' )
-			);
+		$ids = array(
+			'injectTicketsButton',
+			'upcomingEventsQueryVariation',
+		);
+		foreach ( $ids as $file_id ) {
+			$asset_file = $this->dir_path . "/build/{$file_id}.asset.php";
+			if ( file_exists( $asset_file ) ) {
+				$asset = require $asset_file;
+				wp_enqueue_script(
+					"cl-site-blocks-{$file_id}",
+					$this->dir_url . "build/{$file_id}.js",
+					$asset['dependencies'],
+					$asset['version'],
+					array( 'strategy' => 'defer' )
+				);
+			}
 		}
 	}
 }
