@@ -19,7 +19,7 @@ registerBlockVariation( 'core/query', {
 			eventsQuery: 'upcoming',
 		},
 	},
-	allowedControls: [],
+	allowedControls: [ 'parents' ],
 	scope: [ 'inserter' ],
 	innerBlocks: [
 		[

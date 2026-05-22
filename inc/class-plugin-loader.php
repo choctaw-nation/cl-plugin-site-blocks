@@ -8,6 +8,9 @@
 
 namespace ChoctawNation\CL_SiteBlocks;
 
+use ChoctawNation\CL_SiteBlocks\Blocks\Block_Templates;
+use ChoctawNation\Events\WP\Plugin_Settings;
+
 /** Inits the Plugin */
 class Plugin_Loader {
 	/**
@@ -23,6 +26,13 @@ class Plugin_Loader {
 	 * @var string $dir_url
 	 */
 	private string $dir_url;
+
+	/**
+	 * The slug of the custom post type for events
+	 *
+	 * @var string $post_type_slug
+	 */
+	private string $post_type_slug;
 
 	/**
 	 * Constructor
@@ -41,7 +51,9 @@ class Plugin_Loader {
 	 * @return void
 	 */
 	public function activate(): void {
-		// nothing to do
+		if ( ! class_exists( 'Plugin_Settings' ) ) {
+			wp_die( 'Required class Plugin_Settings does not exist. CNO Events Plugin must be installed and activated!' );
+		}
 	}
 
 	/**
@@ -66,13 +78,25 @@ class Plugin_Loader {
 	 * Loads the Plugin
 	 */
 	public function load_plugin(): void {
+		$options              = Plugin_Settings::get_options();
+		$this->post_type_slug = $options['post_type_slug'];
 		add_action( 'init', array( $this, 'register_blocks' ) );
-		$rest_router = new Rest_Router();
+		add_action( 'init', array( $this, 'setup_events_blocks' ), 20 );
+		$rest_router = new Rest_Router( $this->post_type_slug );
 		add_action( 'rest_api_init', array( $rest_router, 'register_routes' ) );
 		add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_editor_assets' ) );
-		$query_handler = new Jobs\Query_Handler();
+		$query_handler = new Jobs\Query_Handler( $this->post_type_slug );
 		add_filter( 'pre_render_block', array( $query_handler, 'pre_render_block' ), 10, 2 );
 		add_filter( 'render_block_core/query', array( $query_handler, 'cleanup_upcoming_events_query_filter' ), 10, 2 );
+	}
+
+	/**
+	 * Sets up the blocks by registering them and their associated block templates and patterns
+	 */
+	public function setup_events_blocks(): void {
+		$block_templates = new Block_Templates( $this->post_type_slug, $this->dir_path );
+		$block_templates->register_default_events_blocks();
+		$block_templates->register_block_patterns();
 	}
 
 	/**

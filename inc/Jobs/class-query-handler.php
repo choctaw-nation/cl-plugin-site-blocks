@@ -7,7 +7,6 @@
 
 namespace ChoctawNation\CL_SiteBlocks\Jobs;
 
-use WP_Block;
 use WP_REST_Request;
 
 /**
@@ -37,9 +36,11 @@ class Query_Handler {
 
 	/**
 	 * Constructor
+	 * 
+	 * @param string $post_type_slug The slug of the post type to target for query modifications.
 	 */
-	public function __construct() {
-		$this->post_type            = 'choctaw-events';
+	public function __construct(string $post_type_slug) {
+		$this->post_type            = $post_type_slug;
 		$this->query_loop_namespace = 'cl-site-blocks/choctaw-events-upcoming';
 		$this->events_query_mods    = array(
 			'meta_key'   => 'start_date',
@@ -119,8 +120,6 @@ class Query_Handler {
 
 	/**
 	 * Cleans up the query modifications after rendering the Query Loop block to prevent affecting other queries.
-	 *
-	 * This should be hooked to the `pre_render_block` filter with a later priority than the `update_query_loop_vars` method.
 	 *
 	 * @param string|null $block_content The block content after rendering.
 	 * @param array       $block The block instance being rendered.
