@@ -98,8 +98,22 @@ class Query_Handler {
 		if ( $this->post_type !== $query_post_type ) {
 			return $query;
 		}
-		$query = array_merge( $query, $this->events_query_mods );
+		$query = $this->merge_query_args( $query );
 		return $query;
+	}
+
+	/**
+	 * Merges the existing query arguments with the predefined query modifications for upcoming events.
+	 * 
+	 * @param array $args The existing query arguments.
+	 * @return array The merged query arguments.
+	 */
+	private function merge_query_args( array $args ): array {
+		$args = array_merge( $args, $this->events_query_mods );
+		if ( ! isset( $args['post_parent__in'] ) ) {
+			$args['post_parent'] = 0;
+		}
+		return $args;
 	}
 
 	/**
@@ -114,7 +128,7 @@ class Query_Handler {
 		if ( empty( $events_query ) || 'upcoming' !== $events_query ) {
 			return $args;
 		}
-		$args = array_merge( $args, $this->events_query_mods );
+		$args = $this->merge_query_args( $args );
 		return $args;
 	}
 
