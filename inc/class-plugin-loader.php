@@ -51,9 +51,7 @@ class Plugin_Loader {
 	 * @return void
 	 */
 	public function activate(): void {
-		if ( ! class_exists( 'Plugin_Settings' ) ) {
-			wp_die( 'Required class Plugin_Settings does not exist. CNO Events Plugin must be installed and activated!' );
-		}
+		// nothing to do
 	}
 
 	/**
