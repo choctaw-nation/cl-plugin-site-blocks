@@ -3,7 +3,7 @@
  * Plugin Name: [Choctaw Landing] Site Blocks
  * Plugin URI: https://github.com/choctaw-nation/cl-plugin-site-blocks
  * Description: Blocks for the Choctaw Landing site.
- * Version: 1.0.0
+ * Version: 1.1.0
  * Author: Choctaw Nation of Oklahoma
  * Author URI: https://www.choctawnation.com
  * Text Domain: cno
@@ -11,7 +11,7 @@
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Requires PHP: 8.2
  * Requires at least: 6.8.0
- * Tested up to: 6.9.0
+ * Tested up to: 7.0.0
  * Requires Plugins: advanced-custom-fields-pro, cno-plugin-events
  *
  * @package ChoctawNation

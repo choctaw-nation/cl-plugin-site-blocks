@@ -1,6 +1,6 @@
 {
 	"name": "cl-plugin-site-blocks",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"description": "Blocks for the Choctaw Landing site.",
 	"prettier": "@wordpress/prettier-config",
 	"browserslist": [
@@ -17,7 +17,8 @@
 		"LICENSE",
 		"CHANGELOG.md",
 		"cl-plugin-site-blocks.php",
-		"vendor"
+		"vendor",
+		"patterns"
 	],
 	"scripts": {
 		"build": "wp-scripts build  --blocks-manifest --webpack-copy-php --output-path=build --config=webpack.config.mjs --experimental-modules",

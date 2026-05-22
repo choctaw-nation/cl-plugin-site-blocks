@@ -8,6 +8,9 @@
 
 namespace ChoctawNation\CL_SiteBlocks;
 
+use ChoctawNation\CL_SiteBlocks\Blocks\Block_Templates;
+use ChoctawNation\Events\WP\Plugin_Settings;
+
 /** Inits the Plugin */
 class Plugin_Loader {
 	/**
@@ -23,6 +26,13 @@ class Plugin_Loader {
 	 * @var string $dir_url
 	 */
 	private string $dir_url;
+
+	/**
+	 * The slug of the custom post type for events
+	 *
+	 * @var string $post_type_slug
+	 */
+	private string $post_type_slug;
 
 	/**
 	 * Constructor
@@ -66,10 +76,25 @@ class Plugin_Loader {
 	 * Loads the Plugin
 	 */
 	public function load_plugin(): void {
+		$options              = Plugin_Settings::get_options();
+		$this->post_type_slug = $options['post_type_slug'];
 		add_action( 'init', array( $this, 'register_blocks' ) );
-		$rest_router = new Rest_Router();
+		add_action( 'init', array( $this, 'setup_events_blocks' ), 20 );
+		$rest_router = new Rest_Router( $this->post_type_slug );
 		add_action( 'rest_api_init', array( $rest_router, 'register_routes' ) );
 		add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_editor_assets' ) );
+		$query_handler = new Jobs\Query_Handler( $this->post_type_slug );
+		add_filter( 'pre_render_block', array( $query_handler, 'pre_render_block' ), 10, 2 );
+		add_filter( 'render_block_core/query', array( $query_handler, 'cleanup_upcoming_events_query_filter' ), 10, 2 );
+	}
+
+	/**
+	 * Sets up the blocks by registering them and their associated block templates and patterns
+	 */
+	public function setup_events_blocks(): void {
+		$block_templates = new Block_Templates( $this->post_type_slug, $this->dir_path );
+		$block_templates->register_default_events_blocks();
+		$block_templates->register_block_patterns();
 	}
 
 	/**
@@ -94,16 +119,22 @@ class Plugin_Loader {
 	 * Enqueues the block editor assets
 	 */
 	public function enqueue_editor_assets() {
-		$asset_file = $this->dir_path . '/build/injectTicketsButton.asset.php';
-		if ( file_exists( $asset_file ) ) {
-			$asset = require $asset_file;
-			wp_enqueue_script(
-				'cl-site-blocks-inject-tickets-button',
-				$this->dir_url . 'build/injectTicketsButton.js',
-				$asset['dependencies'],
-				$asset['version'],
-				array( 'strategy' => 'defer' )
-			);
+		$ids = array(
+			'injectTicketsButton',
+			'upcomingEventsQueryVariation',
+		);
+		foreach ( $ids as $file_id ) {
+			$asset_file = $this->dir_path . "/build/{$file_id}.asset.php";
+			if ( file_exists( $asset_file ) ) {
+				$asset = require $asset_file;
+				wp_enqueue_script(
+					"cl-site-blocks-{$file_id}",
+					$this->dir_url . "build/{$file_id}.js",
+					$asset['dependencies'],
+					$asset['version'],
+					array( 'strategy' => 'defer' )
+				);
+			}
 		}
 	}
 }
