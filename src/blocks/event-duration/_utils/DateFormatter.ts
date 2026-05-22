@@ -34,7 +34,7 @@ export class DateFormatter {
 			acf.ticket_details?.some(
 				( ticket ) => ticket.event_date !== acf.start_date
 			);
-		this.isTicketedEvent = !! acf.is_ticketed_event;
+		this.isTicketedEvent = acf.is_ticketed_event === 'true';
 	}
 
 	/**
@@ -177,6 +177,12 @@ export class DateFormatter {
 		const monthFormat = this.format.startsWith( 'M' ) ? 'M' : 'F';
 		const inSameMonth = parts.start.month === parts.end.month;
 		const inSameYear = parts.start.year === parts.end.year;
+		const inSameDay =
+			inSameMonth && inSameYear && parts.start.day === parts.end.day;
+
+		if ( inSameDay ) {
+			return date( `${ monthFormat } d, Y`, duration.start );
+		}
 		const dateString = { start: '', end: '' };
 		if ( inSameYear ) {
 			dateString.start = date( `${ monthFormat } d`, duration.start );
