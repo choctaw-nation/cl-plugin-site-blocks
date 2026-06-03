@@ -9,7 +9,7 @@ $context = $block->context;
 if ( empty( $context['postId'] ) || empty( $context['postType'] ) ) {
 	return;
 }
-$has_content       = ! empty( get_the_content( post:$context['postId'] ) );
+$has_content       = ! empty( get_post_field( 'post_content', $context['postId'] ) ); 
 $is_ticketed_event = 'true' === get_field( 'is_ticketed_event', $context['postId'] );
 if ( $has_content || $is_ticketed_event ) {
 	printf(

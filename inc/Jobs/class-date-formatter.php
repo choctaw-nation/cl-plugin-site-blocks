@@ -55,20 +55,6 @@ class Date_Formatter {
 	private bool $can_use_duration;
 
 	/**
-	 * Ticket details array
-	 *
-	 * @var array
-	 */
-	private array $ticket_details;
-
-	/**
-	 * Whether event is ticketed
-	 *
-	 * @var bool
-	 */
-	private bool $is_ticketed_event;
-
-	/**
 	 * Default start time
 	 *
 	 * @var string
@@ -109,11 +95,8 @@ class Date_Formatter {
 		$end_date                = ! empty( get_field( 'end_date' ) ) ? get_field( 'end_date' ) : $start_date;
 		$end_time                = ! empty( get_field( 'end_time' ) ) ? get_field( 'end_time' ) : null;
 		$this->timezone          = wp_timezone();
-		$this->is_ticketed_event = ! empty( get_field( 'is_ticketed_event' ) ) && 'true' === get_field( 'is_ticketed_event' );
-
 		$this->start_date       = $this->create_date_time( $start_date, $start_time );
 		$this->end_date         = $this->create_date_time( $end_date, $end_time );
-		$this->ticket_details   = get_field( 'ticket_details' ) ?? array();
 		$this->can_use_duration = $start_date !== $end_date;
 	}
 

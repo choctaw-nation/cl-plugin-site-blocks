@@ -13,10 +13,12 @@ $is_sold_out  = get_field( 'is_sold_out' );
 $wrapper_args = array(
 	'href'   => esc_url( $tickets_link ),
 	'target' => '_blank',
+	'rel'    => 'noopener noreferrer',
 	'class'  => $is_sold_out ? 'sold-out' : '',
 );
 if ( $is_sold_out ) {
 	$wrapper_args['disabled'] = 'true';
+	unset( $wrapper_args['href'], $wrapper_args['target'], $wrapper_args['rel'] );
 }
 printf(
 	'<%1$s %2$s>%3$s</%1$s>',
