@@ -4,7 +4,8 @@ export type AcfEventFields = {
 	swiper_image: string | number;
 	fallback_image: string | number;
 	is_ticketed_event: 'true' | 'false';
-	ticket_details: TicketedEventFields[];
+	is_sold_out: boolean;
+	tickets_link: string | null;
 	is_all_day: boolean;
 	start_date: string;
 	end_date: string | null;
@@ -12,14 +13,6 @@ export type AcfEventFields = {
 	end_time: string | null;
 	brief_description: string;
 	event_website: string | null;
-};
-export type TicketedEventFields = {
-	event_date: string;
-	event_time: string;
-	ticket_link: string;
-	use_alternate_location: boolean;
-	alternate_location: string | null;
-	is_sold_out: boolean;
 };
 
 export type AllowedDateTimeStringFormat =

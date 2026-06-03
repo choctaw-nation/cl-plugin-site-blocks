@@ -1,5 +1,13 @@
 # Changelog
 
+## v2.0.0 - [June 3, 2026]
+
+-   Added: New "Event Details" block
+-   Removed: Tickets Block
+-   Updated: "Ticket" block works independently (was previously dependent on Tickets block)
+-   Updated: Removed dead ACF fields for ticketed events (no longer supported)
+-   Chore: Update packages & semver
+
 ## v1.1.0 - [May 22, 2026]
 
 -   Added: New "Upcoming Events" query loop to sort events by ACF field

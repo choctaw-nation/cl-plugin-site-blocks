@@ -8,7 +8,7 @@ registerBlockVariation( 'core/query', {
 	title: 'Upcoming Events Loop',
 	description: 'Displays upcoming events',
 	icon: loop,
-	isActive: ['namespace'],
+	isActive: [ 'namespace' ],
 	attributes: {
 		namespace: MY_VARIATION_NAME,
 		query: {

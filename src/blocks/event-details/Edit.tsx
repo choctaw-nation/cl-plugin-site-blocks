@@ -5,24 +5,23 @@ import useAcf from '@shared/useAcf';
 
 export default function Edit( { context } ) {
 	const { acf, isLoading } = useAcf( context );
-	const isSoldOut = acf?.is_sold_out;
 
-	const blockProps = useBlockProps( {
-		className: `${ isSoldOut ? 'disabled' : '' }`,
-	} );
+	const blockProps = useBlockProps();
 
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title="Tickets Button" initialOpen={ true }>
-					<Tip>The tickets button will only update on save.</Tip>
+				<PanelBody title="View Details Button" initialOpen={ true }>
+					<Tip>
+						The View Details button will dynamically render if the
+						event is ticketed or if it has any blocks.
+					</Tip>
 				</PanelBody>
 			</InspectorControls>
 			{ acf?.is_ticketed_event === 'false' ? null : (
 				<div { ...blockProps }>
-					{ isSoldOut && 'Sold Out' }
 					{ isLoading && 'Loading...' }
-					{ ! isSoldOut && ! isLoading && 'Get Tickets' }
+					{ ! isLoading && 'View Details' }
 				</div>
 			) }
 		</>

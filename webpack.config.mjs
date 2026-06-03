@@ -37,10 +37,6 @@ const addEditorEntry = ( webpackConfig ) => {
 
 			return {
 				...entries,
-				injectTicketsButton: path.resolve(
-					__dirname,
-					'./src/editor/injectTicketsButton.ts'
-				),
 				upcomingEventsQueryVariation: path.resolve(
 					__dirname,
 					'./src/editor/upcomingEventsQueryVariation.ts'

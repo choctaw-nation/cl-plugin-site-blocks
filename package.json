@@ -1,6 +1,6 @@
 {
 	"name": "cl-plugin-site-blocks",
-	"version": "1.1.0",
+	"version": "2.0.0",
 	"description": "Blocks for the Choctaw Landing site.",
 	"prettier": "@wordpress/prettier-config",
 	"browserslist": [
@@ -29,26 +29,26 @@
 		"start": "wp-scripts start --webpack-copy-php --blocks-manifest --experimental-modules --config=webpack.config.mjs"
 	},
 	"devDependencies": {
-		"@eslint/compat": "^2",
-		"@wordpress/block-editor": "^15.19.0",
-		"@wordpress/blocks": "^15.19.0",
-		"@wordpress/components": "^33.1.0",
-		"@wordpress/core-data": "^7.46.0",
-		"@wordpress/data": "^10.46.0",
-		"@wordpress/date": "^5.46.0",
-		"@wordpress/dom-ready": "^4.46.0",
-		"@wordpress/editor": "^14.46.0",
-		"@wordpress/element": "^6.46.0",
-		"@wordpress/eslint-plugin": "^25",
-		"@wordpress/icons": "^13.1.0",
-		"@wordpress/interactivity": "^6.46.0",
-		"@wordpress/scripts": "^32",
+		"@eslint/compat": "^2.1.0",
+		"@wordpress/block-editor": "^15.20.0",
+		"@wordpress/blocks": "^15.20.0",
+		"@wordpress/components": "^34.0.0",
+		"@wordpress/core-data": "^7.47.0",
+		"@wordpress/data": "^10.47.0",
+		"@wordpress/date": "^5.47.0",
+		"@wordpress/dom-ready": "^4.47.0",
+		"@wordpress/editor": "^14.47.0",
+		"@wordpress/element": "7.0.0",
+		"@wordpress/eslint-plugin": "^25.3.0",
+		"@wordpress/icons": "^13.2.0",
+		"@wordpress/interactivity": "^6.47.0",
+		"@wordpress/scripts": "^32.3.0",
 		"eslint": "^9",
-		"globals": "^17",
+		"globals": "^17.6.0",
 		"prettier": "npm:wp-prettier@^3",
-		"stylelint": "^17",
-		"stylelint-config-standard-scss": "^17",
-		"stylelint-scss": "^7",
-		"typescript": "^6"
+		"stylelint": "^17.12.0",
+		"stylelint-config-standard-scss": "^17.0.0",
+		"stylelint-scss": "^7.2.0",
+		"typescript": "^6.0.3"
 	}
 }

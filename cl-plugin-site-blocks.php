@@ -3,7 +3,7 @@
  * Plugin Name: [Choctaw Landing] Site Blocks
  * Plugin URI: https://github.com/choctaw-nation/cl-plugin-site-blocks
  * Description: Blocks for the Choctaw Landing site.
- * Version: 1.1.0
+ * Version: 2.0.0
  * Author: Choctaw Nation of Oklahoma
  * Author URI: https://www.choctawnation.com
  * Text Domain: cno
@@ -48,14 +48,3 @@ register_uninstall_hook( __FILE__, array( 'ChoctawNation\CL_SiteBlocks\Plugin_Lo
 
 // Load the Plugin
 add_action( 'plugins_loaded', array( $cno_plugin, 'load_plugin' ) );
-add_action(
-	'wp_default_scripts',
-	function ( $scripts ) {
-		if ( isset( $scripts->registered['jquery'] ) ) {
-			$scripts->registered['jquery']->deps = array_diff(
-				$scripts->registered['jquery']->deps,
-				array( 'jquery-migrate' )
-			);
-		}
-	}
-);
