@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.0.1 - [June 4, 2026]
+
+-   Updated: Add to Calendar block now uses base button spacing.
+
 ## v2.0.0 - [June 3, 2026]
 
 -   Added: New "Event Details" block
