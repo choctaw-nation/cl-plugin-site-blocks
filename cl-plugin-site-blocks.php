@@ -3,7 +3,7 @@
  * Plugin Name: [Choctaw Landing] Site Blocks
  * Plugin URI: https://github.com/choctaw-nation/cl-plugin-site-blocks
  * Description: Blocks for the Choctaw Landing site.
- * Version: 2.0.0
+ * Version: 2.0.1
  * Author: Choctaw Nation of Oklahoma
  * Author URI: https://www.choctawnation.com
  * Text Domain: cno

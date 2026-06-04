@@ -1,6 +1,6 @@
 {
 	"name": "cl-plugin-site-blocks",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"description": "Blocks for the Choctaw Landing site.",
 	"prettier": "@wordpress/prettier-config",
 	"browserslist": [
