@@ -15,14 +15,6 @@
 			background-color var(--wp--custom--transition--standard),
 			color var(--wp--custom--transition--standard),
 			border-color var(--wp--custom--transition--standard);
-	}
-
-	&[disabled] {
-		opacity: 0.5;
-		cursor: not-allowed;
-	}
-
-	&.is-style-primary {
 		background-color: var(--wp--preset--color--primary);
 		color: white;
 		border-color: var(--wp--preset--color--primary);
@@ -31,6 +23,11 @@
 			background-color: white;
 			color: var(--wp--preset--color--primary);
 		}
+	}
+
+	&[disabled] {
+		opacity: 0.5;
+		cursor: not-allowed;
 	}
 
 	&.is-style-outline {

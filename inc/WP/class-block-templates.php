@@ -142,11 +142,6 @@ class Block_Templates {
 											array(),
 										),
 										array(
-											'cl-site-blocks/tickets-block',
-											array(),
-											array(),
-										),
-										array(
 											'core/group',
 											array(
 												'layout' => array(

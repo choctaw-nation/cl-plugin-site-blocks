@@ -36,10 +36,10 @@ class Query_Handler {
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param string $post_type_slug The slug of the post type to target for query modifications.
 	 */
-	public function __construct(string $post_type_slug) {
+	public function __construct( string $post_type_slug ) {
 		$this->post_type            = $post_type_slug;
 		$this->query_loop_namespace = 'cl-site-blocks/choctaw-events-upcoming';
 		$this->events_query_mods    = array(
@@ -104,7 +104,7 @@ class Query_Handler {
 
 	/**
 	 * Merges the existing query arguments with the predefined query modifications for upcoming events.
-	 * 
+	 *
 	 * @param array $args The existing query arguments.
 	 * @return array The merged query arguments.
 	 */

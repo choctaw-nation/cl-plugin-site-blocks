@@ -7,8 +7,6 @@ export class DateFormatter {
 	private asDuration: boolean;
 	private canUseDuration: boolean;
 	private endDate: Date | null;
-	private ticketDetails: AcfEventFields[ 'ticket_details' ];
-	private isTicketedEvent: boolean;
 	private defaultStartTime = '00:00:00';
 
 	constructor(
@@ -26,15 +24,9 @@ export class DateFormatter {
 			acf.end_date || acf.start_date,
 			acf.end_time
 		);
-		this.ticketDetails = acf.ticket_details;
 		this.format = format;
 		this.asDuration = asDuration;
-		this.canUseDuration =
-			!! acf?.end_date ||
-			acf.ticket_details?.some(
-				( ticket ) => ticket.event_date !== acf.start_date
-			);
-		this.isTicketedEvent = acf.is_ticketed_event === 'true';
+		this.canUseDuration = !! acf?.end_date;
 	}
 
 	/**
@@ -90,15 +82,6 @@ export class DateFormatter {
 					: 'F d, Y';
 				return date( format, this.startDate );
 			}
-			if ( this.isTicketedEvent ) {
-				const ticketedDuration = this.getTicketedEventDuration();
-				if ( ! ticketedDuration ) {
-					throw new Error(
-						'Ticketed event duration could not be determined.'
-					);
-				}
-				return this.getFormattedDurationString( ticketedDuration );
-			}
 			return this.getFormattedDurationString( {
 				start: this.startDate,
 				end: this.endDate!,
@@ -118,38 +101,6 @@ export class DateFormatter {
 		};
 
 		return `${ times.start } – ${ times.end }`;
-	}
-
-	/**
-	 * Loops through the ticketDetails object to find (and create) the first and last Date objects of the event
-	 */
-	private getTicketedEventDuration(): { start: Date; end: Date } | null {
-		if ( ! this.ticketDetails || this.ticketDetails.length === 0 ) {
-			return null;
-		}
-		let start: Date | null = null,
-			end: Date | null = null;
-		this.ticketDetails.forEach( ( ticket ) => {
-			const currentDate = this.createDateTime(
-				ticket.event_date,
-				ticket.event_time
-			)!;
-			if ( ! start || currentDate < start ) {
-				start = currentDate;
-			}
-			if ( ! end || currentDate > end ) {
-				end = currentDate;
-			}
-		} );
-
-		if ( ! start || ! end ) {
-			return null;
-		}
-
-		return {
-			start,
-			end,
-		};
 	}
 
 	private getFormattedDurationString( duration: {

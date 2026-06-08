@@ -9,7 +9,7 @@ ob_start();
 ?>
 <!-- wp:cover {"url":"https://choctawlanding.com/wp-content/uploads/2026/05/light-gray-map-background.webp","id":2110,"dimRatio":0,"isUserOverlayColor":true,"isDark":false,"sizeSlug":"full","metadata":{"name":"Title Bar"},"align":"wide","className":"title-bar","style":{"spacing":{"padding":{"top":"var:preset|spacing|xl","bottom":"var:preset|spacing|xl"}},"dimensions":{"aspectRatio":"auto"}},"layout":{"type":"constrained","contentSize":"1076px"}} -->
 <div class="wp-block-cover alignwide is-light title-bar" style="padding-top: var(--wp--preset--spacing--xl);padding-bottom: var(--wp--preset--spacing--xl);">
-	<img class="wp-block-cover__image-background wp-image-2110 size-full" alt="" src="https://landing.local/wp-content/uploads/2026/05/light-gray-map-background.webp"
+	<img class="wp-block-cover__image-background wp-image-2110 size-full" alt="" src="https://choctawlanding.com/wp-content/uploads/2026/05/light-gray-map-background.webp"
 		data-object-fit="cover" />
 	<span aria-hidden="true" class="wp-block-cover__background has-background-dim-0 has-background-dim"></span>
 	<div class="wp-block-cover__inner-container">

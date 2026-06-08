@@ -120,7 +120,6 @@ class Plugin_Loader {
 	 */
 	public function enqueue_editor_assets() {
 		$ids = array(
-			'injectTicketsButton',
 			'upcomingEventsQueryVariation',
 		);
 		foreach ( $ids as $file_id ) {

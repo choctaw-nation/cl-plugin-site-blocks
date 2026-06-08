@@ -28,8 +28,7 @@ export default function useAcf( args: UseAcfArgs = {} ) {
 		[ postId, postType ]
 	);
 
-	const canUseDuration =
-		acf?.end_date || acf?.end_time || acf?.is_ticketed_event === 'true';
+	const canUseDuration = acf?.end_date || acf?.end_time;
 	return {
 		acf,
 		isLoading: ! acf,

@@ -1,13 +1,13 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "cl-site-blocks/tickets-button",
-	"version": "2.0.0",
-	"title": "Tickets Button",
+	"name": "cl-site-blocks/event-details",
+	"version": "1.0.0",
+	"title": "Event Details",
 	"category": "design",
 	"icon": "block-default",
-	"keywords": [],
-	"description": "An interactive block that lets users get tickets for an event.",
+	"keywords": [ "button", "event", "details", "excerpt" ],
+	"description": "A block that allows users to navigate to the event single page",
 	"example": {},
 	"supports": {
 		"html": false,
@@ -15,7 +15,7 @@
 		"multiple": false
 	},
 	"usesContext": [ "postId", "postType" ],
-
+	"ancestor": [ "core/post-template" ],
 	"editorScript": "file:./index.tsx",
 	"style": "file:./style-index.css",
 	"render": "file:./render.php",

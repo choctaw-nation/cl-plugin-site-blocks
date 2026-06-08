@@ -22,17 +22,17 @@ use WP_REST_Server;
 class Rest_Router extends WP_REST_Controller {
 	/**
 	 * Post type slug
-	 * 
+	 *
 	 * @var string $post_type_slug
 	 */
 	private string $post_type_slug;
 
 	/**
 	 * Constructor to initialize the REST Router with the necessary post type slug.
-	 * 
+	 *
 	 * @param string $post_type_slug The slug of the post type to target for REST API routes (e.g., 'choctaw-events').
 	 */
-	public function __construct(string $post_type_slug) {
+	public function __construct( string $post_type_slug ) {
 		$this->post_type_slug = $post_type_slug;
 	}
 	/**

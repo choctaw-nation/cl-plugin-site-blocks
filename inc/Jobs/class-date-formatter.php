@@ -55,20 +55,6 @@ class Date_Formatter {
 	private bool $can_use_duration;
 
 	/**
-	 * Ticket details array
-	 *
-	 * @var array
-	 */
-	private array $ticket_details;
-
-	/**
-	 * Whether event is ticketed
-	 *
-	 * @var bool
-	 */
-	private bool $is_ticketed_event;
-
-	/**
 	 * Default start time
 	 *
 	 * @var string
@@ -109,12 +95,9 @@ class Date_Formatter {
 		$end_date                = ! empty( get_field( 'end_date' ) ) ? get_field( 'end_date' ) : $start_date;
 		$end_time                = ! empty( get_field( 'end_time' ) ) ? get_field( 'end_time' ) : null;
 		$this->timezone          = wp_timezone();
-		$this->is_ticketed_event = ! empty( get_field( 'is_ticketed_event' ) ) && 'true' === get_field( 'is_ticketed_event' );
-
 		$this->start_date       = $this->create_date_time( $start_date, $start_time );
 		$this->end_date         = $this->create_date_time( $end_date, $end_time );
-		$this->ticket_details   = get_field( 'ticket_details' ) ?? array();
-		$this->can_use_duration = $start_date !== $end_date || $this->has_ticket_with_different_date();
+		$this->can_use_duration = $start_date !== $end_date;
 	}
 
 	/**
@@ -144,30 +127,6 @@ class Date_Formatter {
 	}
 
 	/**
-	 * Checks if any ticket has a different event_date than start_date.
-	 *
-	 * @return bool True if any ticket has a different date.
-	 */
-	private function has_ticket_with_different_date(): bool {
-
-		if ( ! $this->is_ticketed_event || empty( $this->ticket_details ) ) {
-			return false;
-		}
-
-		foreach ( $this->ticket_details as $ticket ) {
-			$ticket_date = $this->create_date_time( $ticket['event_date'], $ticket['event_time'], $this->ticked_event_date_time_string );
-			if ( ! $ticket_date ) {
-				continue;
-			}
-			if ( $ticket_date !== $this->start_date ) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	/**
 	 * Returns the formatted date string based on the ACF event fields, format, and duration settings.
 	 *
 	 * @return string Formatted date string.
@@ -187,15 +146,6 @@ class Date_Formatter {
 			if ( ! $this->can_use_duration ) {
 				$standard_format = str_contains( $this->format, 'M' ) ? 'M d, Y' : 'F d, Y';
 				return $this->format_date( $standard_format, $this->start_date );
-			}
-
-			if ( $this->is_ticketed_event ) {
-				$ticketed_duration = $this->get_ticketed_event_duration();
-				if ( ! $ticketed_duration ) {
-					throw new \RuntimeException( 'Ticketed event duration could not be determined.' );
-				}
-
-				return $this->get_formatted_duration_string( $ticketed_duration );
 			}
 
 			return $this->get_formatted_duration_string(
@@ -224,49 +174,6 @@ class Date_Formatter {
 		);
 
 		return $times['start'] . ' – ' . $times['end'];
-	}
-
-	/**
-	 * Gets ticketed event duration (earliest and latest ticket times).
-	 *
-	 * @return array|null Array with 'start' and 'end' DateTimeImmutable objects, or null if no valid tickets.
-	 */
-	private function get_ticketed_event_duration() {
-		if ( empty( $this->ticket_details ) || ! is_array( $this->ticket_details ) ) {
-			return null;
-		}
-
-		$start = null;
-		$end   = null;
-
-		foreach ( $this->ticket_details as $ticket ) {
-			$current_date = $this->create_date_time(
-				$ticket['event_date'] ?? null,
-				$ticket['event_time'] ?? null,
-				$this->ticked_event_date_time_string
-			);
-
-			if ( ! $current_date ) {
-				continue;
-			}
-
-			if ( ! $start || $current_date < $start ) {
-				$start = $current_date;
-			}
-
-			if ( ! $end || $current_date > $end ) {
-				$end = $current_date;
-			}
-		}
-
-		if ( ! $start || ! $end ) {
-			return null;
-		}
-
-		return array(
-			'start' => $start,
-			'end'   => $end,
-		);
 	}
 
 	/**
